@@ -6,11 +6,32 @@ import java.util.List;
 
 import kr.board.entity.Board;
 
-public class BoardDAO {
-
+public interface BoardMapper {
+	// 데이터베이스 연결작업(X) -> 설정(xml)
 	// 게시판 전체 리스트 가져오기.
-	public List<Board> getLists(){
+	public List<Board> getLists();
+}	
+	
+
+
+
+//	{
+		// 연결객체(Connect, SuqSession 를 가져오기
+		// SQL 문장 전송 : PreparedStatement : @{} 
+		// SQL 결과 집합 : ResultSet : next
+		// 레크드 한개씩 -> Board -> List<Board> : while()
+		// return list
+
 		
+//		SqlSession session = sqlSessionFactory.openSession();
+//		List<Board> list = session.selectList("getLists");
+//		session.close();
+//		
+//		return list;
+		
+		
+		
+/*		
 		// 게시판 3개를 생성하고 List에 저장하기
 		Board vo1 = new Board(1, "게시판연습", "게시판연습", "관리자", new Date(), 0);
 		Board vo2 = new Board(2, "게시판연습", "게시판연습", "문경수", new Date(), 0);
@@ -27,5 +48,6 @@ public class BoardDAO {
 		
 		
 		return list;
-	}
-}
+*/		
+//	}
+	
