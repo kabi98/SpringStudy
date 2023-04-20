@@ -4,8 +4,8 @@
     
 <%@taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
-<%@taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>    
-
+<%@taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
+    
 <c:set var="cpath" value="${pageContext.request.contextPath}"/> 
 
 <!DOCTYPE html>
@@ -36,52 +36,42 @@
     <div class="card-body">
     	<div class = "row">
 	    	<div class = "col-lg-2">
-	    		<jsp:include page="left.jsp"/>
+	    		<jsp:include page="left.jsp"/> 
 	    	</div>
 	    	
 	    	<div class = "col-lg-7">
 		    	<div class = card>
-	    	
+		    	
 		    		<div class = "card-body">
 		    			<h4 class = "card-title">BOARD</h4>
-		    			<p class = "card-text">게시판 리스트</p>
-		    			
-							<table class="table table-bordered table-hover">
-								<thead>
-									<tr>
-										<td> 번호 </td>
-										<td> 제목 </td>
-										<td> 작성자 </td>
-										<td> 작성일 </td>
-										<td> 조회수 </td>
-									</tr>
-								</thead>
-								
-								<tbody>
-									<c:forEach var="vo" items="${list}">
-									
-										<tr>
-											<td> ${vo.num} </td>
-											<td> <a href="${cpath}/get?num=${vo.num}"> ${vo.title} </a> </td>
-											<td> ${vo.writer} </td>
-											<td> <fmt:formatDate value= "${vo.indate}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-											<td> ${vo.count} </td>
-										</tr>
-								 		
-									</c:forEach>
-								</tbody>								
-							</table>
-							
-							<button class = "btn btn-success btn-sm" onclick="location.href='${cpath}/register'"> 글쓰기 </button>
-		    			
-
+		    			<p class = "card-text">게시판 글쓰기</p>
+		    				<form action="${cpath}/register" method="post">
+		    				
+			    				<div class = "form-group">
+				    				<label> 제목 : </label>
+				    				<input type="text" name = "title" id = "title" class="form-control" />
+			    				</div>
+			    				<div class = "form-group">
+				    				<label> 내용 : </label>
+				    				<textarea row="10" name = "content" id = "content" class="form-control" > </textarea>
+				    				
+			    				</div>
+			    				<div class = "form-group">
+				    				<label> 작성자 : </label>
+				    				<input type="writer" name = "writer" id = "title" class="form-control" />
+			    				</div>
+			    				<button type = "button" class = "btn btn-sm btn-primary"> 목록 </button>
+			    				<button type = "submit" class = "btn btn-sm btn-primary"> 등록 </button>
+			    				<button type = "reset" class = "btn btn-sm btn-primary"> 취소 </button>
+		    				</form>
+		    				
 		    		</div>
-	    		</div>
-	    		
+		    		
+		    	</div>
 	    	</div>
 	    	
 	    	<div class = "col-lg-3">
-	    		<jsp:include page="right.jsp"/>
+	    		<jsp:include page="right.jsp"/> 
 	    	</div>
     	</div>
     </div> 
@@ -94,5 +84,3 @@
 
 </body>
 </html>
-
-

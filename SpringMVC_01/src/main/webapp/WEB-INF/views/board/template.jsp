@@ -4,7 +4,9 @@
     
 <%@taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
-<%@taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>    
+<%@taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
+    
+<c:set var="cpath" value="${pageContext.request.contextPath}"/> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,11 +40,15 @@
 	    	</div>
 	    	
 	    	<div class = "col-lg-7">
-	    		<div class = "card-body">
-	    			<h4 class = "card-title">BOARD</h4>
-	    			<p class = "card-text">제목</p>
-	    			게시판 콘텐츠가 들어가는 부분.
-	    		</div>
+		    	<div class = card>
+		    	
+		    		<div class = "card-body">
+		    			<h4 class = "card-title">BOARD</h4>
+		    			<p class = "card-text">제목</p>
+		    			게시판 콘텐츠가 들어가는 부분.
+		    		</div>
+		    		
+		    	</div>
 	    	</div>
 	    	
 	    	<div class = "col-lg-3">

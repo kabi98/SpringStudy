@@ -9,4 +9,15 @@
 		select * from board order by num desc
 	</select>
 
+	<!-- 전체 게시물을 가져오는 SQL -->
+	<insert id="register" parameterType="kr.board.entity.Board">
+		insert into board(title, content, writer)
+		values ( #{title}, #{content}, #{writer})
+	</insert>
+	
+	<select id="get" parameterType="int" resultType = "kr.board.entity.Board">
+		select * from board	where num = #{num}
+	</select>
+	
+
 </mapper>
