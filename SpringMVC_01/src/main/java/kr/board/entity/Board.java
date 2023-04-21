@@ -2,9 +2,9 @@ package kr.board.entity;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 // 게시판(Object) : 번호, 제목, 내용, 작성자, 작성일, 조회수
 @AllArgsConstructor

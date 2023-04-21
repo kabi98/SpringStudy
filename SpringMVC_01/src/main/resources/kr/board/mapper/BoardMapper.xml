@@ -19,5 +19,19 @@
 		select * from board	where num = #{num}
 	</select>
 	
+<!-- 	
+	BoardMapper.java 에서 어노테이션으로 정의 했음.
+	중복 정의 하면 안됨.
+	<delete id="remove" parameterType="int">
+		delete from board	where num = #{num}
+	</delete>
+ -->
+ 
+ 	<update id="modify" parameterType="kr.board.entity.Board">
+		update board 
+			set title = #{title}, content = #{content}
+		where num = #{num}
+	</update>
+ 	
 
 </mapper>
