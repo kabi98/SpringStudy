@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import kr.board.entity.Board;
+import kr.board.entity.Member;
 
 
 // JDBC -> MyBatis -> [MyBatis-Spring] -> Spring JPA
@@ -33,6 +35,11 @@ public interface BoardMapper {
 	// 선택한 번호의 게시물 1개를 삭제하는 메서드 정의
 	@Update("update board set count=count+1 where num = #{num}")
 	public void count(int num);
+	
+	// 회원 로그인 처리 메서드 정의
+	@Select("select * from member where username=#{username} and password=#{password}")
+	public Member login(Member mvo);
+	
 	
 }	
 	

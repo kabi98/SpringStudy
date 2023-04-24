@@ -49,7 +49,7 @@
 		    			<h4 class = "card-title">BOARD</h4>
 		    			<p class = "card-text">게시판 글쓰기</p>
 		    				<form action="${cpath}/register" method="post">
-		    				
+			    				<input type="hidden" name = "username" value = "${mvo.username}" />
 			    				<div class = "form-group">
 				    				<label> 제목 : </label>
 				    				<input type="text" name = "title" id = "title" class="form-control" />
@@ -61,7 +61,7 @@
 			    				</div>
 			    				<div class = "form-group">
 				    				<label> 작성자 : </label>
-				    				<input type="writer" name = "writer" id = "title" class="form-control" />
+				    				<input type="writer" name = "writer" id = "title" class="form-control" value="${mvo.name}" readonly="readonly"/>
 			    				</div>
 			    				<button type = "button" class = "btn btn-sm btn-primary"> 목록 </button>
 			    				<button type = "submit" class = "btn btn-sm btn-primary"> 등록 </button>

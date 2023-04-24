@@ -56,6 +56,7 @@
 										<td> 제목 </td>
 										<td> 작성자 </td>
 										<td> 작성일 </td>
+										<td> 아이디 </td>
 										<td> 조회수 </td>
 									</tr>
 								</thead>
@@ -68,15 +69,17 @@
 											<td> <a href="${cpath}/get?num=${vo.num}"> ${vo.title} </a> </td>
 											<td> ${vo.writer} </td>
 											<td> <fmt:formatDate value= "${vo.indate}" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
+											<td> ${vo.username} </td>
 											<td> ${vo.count} </td>
 										</tr>
 								 		
 									</c:forEach>
 								</tbody>								
 							</table>
-							
-							<button class = "btn btn-success btn-sm" onclick="location.href='${cpath}/register'"> 글쓰기 </button>
-		    			
+
+							<c:if test="${!empty mvo}">							
+								<button class = "btn btn-success btn-sm" onclick="location.href='${cpath}/register'"> 글쓰기 </button>
+		    				</c:if>
 
 		    		</div>
 	    		</div>
