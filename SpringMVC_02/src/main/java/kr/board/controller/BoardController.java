@@ -88,5 +88,36 @@ public class BoardController { // Service(X)->Controller(POJO)
 		rttr.addAttribute("num", vo.getNum()); // ?num=10&page=XXXX&search=XXX
 		return "redirect:/get";    
 	}
-	
+
+	@GetMapping("/reply") // ?num=10
+	public String reply(int num, Model model) {
+		logger.info(String.format("BoardController reply ") );
+		Board vo = mapper.get(num);
+		model.addAttribute("vo", vo);
+		return "board/reply"; // modify.jsp
+	}
+
+	// 5개 받음 부모글 - num, 답글 - username, title, content, write
+	// 만들어 줘야함. - bgroup, bseq, blevel, bdelete
+	@PostMapping("/reply") 
+	public String reply(Board vo) {
+		logger.info(String.format("BoardController reply ") );
+		// 답글에 필요한 정보 만들기..
+		// 1. 부모글(원글)의 정보를 가져오기.
+		Board parent = mapper.get(vo.getNum());
+		
+		// 2. 부모글의 bgroup을 답글의 bgroup으로 저장.
+		vo.setBgroup( parent.getBgroup() );
+		// 3. 부모글의 bseq을 답글의 bseq로 저장.
+		vo.setBseq( parent.getBseq() + 1);
+		// 4. 부모글의 blevel을 답글의 blevel로 저장.
+		vo.setBlevel( parent.getBlevel() + 1);
+		// 5. 부모의 bgroup과 같고 and 부모의 bseq 보다 큰 답글의 
+		// 		bseq를 모두 1을 더하는 작업
+		mapper.replySeqUpdate(parent);
+		// 6. 답글을 저장하기.
+		mapper.replyInsert(vo);
+		
+		return "redirect:/list"; // modify.jsp
+	}
 }

@@ -43,7 +43,8 @@
 	  			formData.attr("action", "${cpath}/remove");
 	  			formData.attr("method", "get");
 	  		} else if(btn == "reply"){
-	  			
+	  			formData.attr("action", "${cpath}/reply");
+	  			formData.attr("method", "get");
 	  		}
 			formData.submit();
 		});
