@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import kr.board.entity.Board;
+import kr.board.entity.Criteria;
 import kr.board.entity.Member;
 
 
@@ -17,7 +18,7 @@ public interface BoardMapper {
 	
 	// 데이터베이스 연결작업(X) -> 설정(xml)
 	// 게시판 전체 리스트 가져오기.
-	public List<Board> getLists();
+	public List<Board> getLists(Criteria cri);
 	
 	// 게시물을 등록하는 메소드 정의
 	public void register(Board vo);
