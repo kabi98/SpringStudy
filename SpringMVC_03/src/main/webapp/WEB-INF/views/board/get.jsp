@@ -120,6 +120,7 @@
 		    			
 			    			<form id="frm" >
 			    				<input type = "hidden" name="num" id="num" value="${vo.num}"/>
+			    				<input type = "hidden" name="page" id="page" value="${cri.page}"/>
 			    			</form>
 		    				
 		    		</div>

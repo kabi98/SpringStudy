@@ -99,3 +99,11 @@ select max(bgroup) from reply;  -- 2+1 = 3
 select IFNULL(max(bgroup)+1, 0) as bgroup 
 from reply;
 
+
+		select * 
+			from reply 
+			order by bgroup desc, bseq asc
+			limit 1, 5;
+
+				select count(*) from reply;
+

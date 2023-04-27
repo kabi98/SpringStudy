@@ -50,6 +50,7 @@
 		    			
 		    			<p class = "card-text">게시판 수정하기</p>
 		    				<form action="${cpath}/modify" method="post">
+		    					<input type = "hidden" name = "page" value = "${cri.page}" />
 		    					<input type = "hidden" name = "num" value = "${vo.num}" />
 		    				
 		    					<div class="form-group">
@@ -60,7 +61,7 @@
 		    						<label> 내용 : </label>
 		    						<textarea rows="10" name = "content" class="form-control">${vo.content}</textarea>
 		    					</div>
-		    					<button type = "button" class="btn btn-sm btn-primary" onclick="location.href='${cpath}/list'">목록</button>
+		    					<button type = "button" class="btn btn-sm btn-primary" onclick="location.href='${cpath}/list?page=${cri.page}'">목록</button>
 		    					<button type = "submit" class="btn btn-sm btn-primary">수정</button>
 		    					<button type = "reset"  class="btn btn-sm btn-primary">취소</button>
 				    				

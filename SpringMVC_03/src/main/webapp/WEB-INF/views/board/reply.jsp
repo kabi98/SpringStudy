@@ -49,6 +49,7 @@
 		    			<h4 class = "card-title">BOARD</h4>
 		    			<p class = "card-text">답글쓰기</p>
 		    				<form action="${cpath}/reply" method="post">
+		    					<input type="hidden" name="page" value="${cri.page}"/>
 		    					<input type="hidden" name="num" value="${vo.num}"/>
 		    					<input type="hidden" name="username" value="${mvo.username}"/>
 		    					<div class="form-group">
@@ -66,7 +67,7 @@
 		    						<input type = "text" name = "writer" class = "form-control" value = "${mvo.name}" readonly="readonly"/>
 		    					</div>
 		    				
-		    					<button type = "button" class = "btn btn-sm btn-primary"> 목록 </button>
+		    					<button type = "button" class = "btn btn-sm btn-primary" onclick="location.href='${cpath}/list?page=${cri.page}'"> 목록 </button>
 		    					<button type = "submit" class = "btn btn-sm btn-primary"> 답글 </button>
 		    					<button type = "reset" class = "btn btn-sm btn-primary"> 취소 </button>
 		    				</form>

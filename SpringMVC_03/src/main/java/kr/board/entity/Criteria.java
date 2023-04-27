@@ -9,7 +9,7 @@ public class Criteria {
 
 	public Criteria() {
 		this.page = 1;
-		this.perPageNum = 5; // 조정
+		this.perPageNum = 3; // 조정
 	}
 	
 	// 현재 페이지의 게시글의 시작번호

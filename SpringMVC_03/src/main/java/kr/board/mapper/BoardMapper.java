@@ -48,6 +48,9 @@ public interface BoardMapper {
 	// 답글을 insert 하기.
 	public void replyInsert(Board vo);
 	
+	// 전체 게시글의 수
+	@Select("select count(*) from reply")
+	public int totalCount();
 	
 	
 }	
