@@ -25,12 +25,35 @@
   <script type="text/javascript">
   
   	$(document).ready(function() {
+  		console.log("ready")
+  		
+  		var pageForm = $("#pageForm");
   		$(".pagination a").on("click", function(e) {
+  	  	console.log(".pagination a on click")
   			e.preventDefault(); // a tag의 고유한 기능을 막는 방법
-  			
+  			var page = $(this).attr("href");
+  			$("#page").val(page);
+  			pageForm.submit();
   			
   		});
 
+			// 상세보기로 이동하는 부분  		
+  		$(".move").on("click", function(e) {
+  	  	console.log(".move on click");
+  	  	
+  			e.preventDefault(); // a tag의 고유한 기능을 막는 방법
+    		var num=$(this).attr("href");
+  			
+   		  var tag="<input type='hidden' name='num' value='"+num+"'>";
+//				var tag = "<input type ='hidden' id= 'num' name = 'num' value='"+num+"'>";
+//				var tag = "<input type ='hidden' id= 'num' name = 'num' >";
+				pageForm.append(tag);
+				
+  			pageForm.attr("action", "${cpath}/get");
+	 			pageForm.attr("method", "get");
+  			pageForm.submit();
+  			
+  		});
   		
   	});
   
@@ -90,7 +113,8 @@
 											
 												<c:if test = "${vo.blevel==0}" >
 													<c:if test = "${vo.bdelete==0}">
-														<a href="${cpath}/get?num=${vo.num}&page=${pm.cri.page}"> ${vo.title} </a>
+													
+                            <a class="move" href="${vo.num}">${vo.title}</a>
 													</c:if>
 													<c:if test = "${vo.bdelete==1}">
 														<a href="javascript:goMsg()"> 삭제된 게시물 입니다.</a>
@@ -109,7 +133,11 @@
 													<i class="bi bi-box-arrow-down-right"></i>
 													
 													<c:if test = "${vo.bdelete==0}">
-														<a href="${cpath}/get?num=${vo.num}&page=${pm.cri.page}"> [RE] : ${vo.title} </a>
+													<!-- 
+														<a class = "move" href="${vo.num}"> [RE] : ${vo.title} </a>
+														 -->
+                            <a class="move" href="${vo.num}">[RE]${vo.title}</a>
+														
 													</c:if>
 													<c:if test = "${vo.bdelete==1}">
 														<a href="javascript:goMsg()"> [RE] : 삭제된 게시물 입니다.</a>
@@ -146,6 +174,9 @@
 						    
 						  </ul>
 
+							<form id="pageForm" action="${cpath}/list" methond="post">
+								<input type ="hidden" id="page" name = "page" value="${pm.cri.page}"/>
+							</form>						  
 
 							<!-- 페이징 리스트 출력 끝 -->
 
