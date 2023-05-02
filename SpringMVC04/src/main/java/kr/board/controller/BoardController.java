@@ -64,6 +64,10 @@ public class BoardController{ // Service(X)->Controller(POJO)
 	public String remove(int num, Criteria cri, RedirectAttributes rttr) { // ?num=10&page=3
 		mapper.remove(num);
 		rttr.addAttribute("page", cri.getPage());
+		
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		
 		return "redirect:/list"; // ?page=3
 	}
 	@GetMapping("/modify")
@@ -79,6 +83,8 @@ public class BoardController{ // Service(X)->Controller(POJO)
 		// 수정 성공후에 다시 상세보기페이지로 이동(/get?num=10)
 		rttr.addAttribute("num", vo.getNum());
 		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		return "redirect:/get"; //?num=10&page=XXX&search=XXX
 	}
 	@GetMapping("/reply") // ?num=10
@@ -103,6 +109,10 @@ public class BoardController{ // Service(X)->Controller(POJO)
 		// 6. 답글을 저정하기
 		mapper.replyInsert(vo);
 		rttr.addAttribute("page", cri.getPage());
+		
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		
 		return "redirect:/list";
 	}
 }

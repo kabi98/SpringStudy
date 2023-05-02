@@ -16,32 +16,125 @@
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript">
-     $(document).ready(function(){
-    	 var pageForm=$("#pageForm");
-    	 $(".pagination a").on("click", function(e){
-    		 e.preventDefault(); // a tag의 고유한 기능을 막는 방법
-    		 var page=$(this).attr("href"); 
-    		 //location.href="${cpath}/list?page="+page+"&aaa=aaa"; / form 이용
-    		 $("#page").val(page); // hidden
-    		 pageForm.submit(); //폼을 전송
-    	 });
-    	 // 상세보기로 이동
-    	 $(".move").on("click", function(e){
-    		 e.preventDefault();
-    		 var num=$(this).attr("href");
-    		 var tag="<input type='hidden' name='num' value='"+num+"'>";
-    		 pageForm.append(tag);
-    		 pageForm.attr("action", "${cpath}/get");
-    		 pageForm.attr("method", "get");
-    		 pageForm.submit(); //폼을 전송
-    	 });
-    	 
-     });  
   
-     function goMsg(){
-    	 $("#myModal").modal("show");
-     }  
+  <script type="text/javascript">
+  	$(document).ready(function(){
+   		var pageForm=$("#pageForm");
+   	  $(".pagination a").on("click", function(e){
+   	 		e.preventDefault(); // a tag의 고유한 기능을 막는 방법
+   	 	  var page=$(this).attr("href"); 
+   	 	  //location.href="${cpath}/list?page="+page+"&aaa=aaa"; / form 이용
+   	 	  $("#page").val(page); // hidden
+   	 	  pageForm.submit(); //폼을 전송
+   	  });
+   	  // 상세보기로 이동
+   	  $(".move").on("click", function(e){
+   	 	  e.preventDefault();
+   	 	  var num=$(this).attr("href");
+   	 	  var tag="<input type='hidden' name='num' value='"+num+"'>";
+   	 	  pageForm.append(tag);
+   	 	  pageForm.attr("action", "${cpath}/get");
+   	 	  pageForm.attr("method", "get");
+   	 	  pageForm.submit(); //폼을 전송
+   	  });
+   	  
+   	  // 책 검색 버튼이 클릭 되었을때 처리
+   		$("#search").click(function(){
+   			var bookname=$("#bookname").val();
+   			if(bookname==""){
+   				alert("책 제목을 입력하세요");
+   				return false;
+   		   }
+   		 
+   		// Kakao Daum OpenAPI 이용해서 책을 검색(요청 -- Ajax ->응답)
+   		$.ajax({ 
+	   			url : "https://dapi.kakao.com/v3/search/book?target=title",
+	   		  headers : {"Authorization" : "KakaoAK ad07f011c5b6981fa5eaea31b09d78d2"},
+	   		  type : "get",
+	   			data : {"query" : bookname},
+	   			dataType : "json",
+	   			success : bookPrint,
+	   			error : function(){
+	   				 	alert("error");
+   				}
+   			});
+   		});
+   	  
+   	  
+   	  	// 주소를 입력하여 위도와 경도를 뽑아서 지도를 출력하는 기능.
+   	  	$("#mapsearch").click(function(){
+   	  		var address=$("#address").val();
+   	  		if(address==""){
+   	  			alert("주소를 입력하세요.")
+   	  			return false;
+   	  		}
+   	  		
+   	   		$.ajax({ 
+   	   			url : "https://dapi.kakao.com/v2/local/search/address.json",
+   	   		  headers : {"Authorization" : "KakaoAK ad07f011c5b6981fa5eaea31b09d78d2"},
+   	   		  type : "get",
+   	   			data : {"query" : address},
+   	   			dataType : "json",
+   	   			success : mapPrint,
+   	   			error : function(){
+   	   				 	alert("error");
+  							}
+   				});
+   			}); 	  
+   	  
+		});  
+		     
+
+  	
+  	function mapPrint(data){
+  		//alert(data);
+  		console.log(data);
+  		var x=data.documents[0].x;
+  		var y=data.documents[0].y;
+  		console.log(x);
+  		console.log(y);
+  	}
+  	
+    function bookPrint(data){
+			console.log(data);
+   	 	var bList = "";
+   	 
+   	 	bList +=" <table class='table table-hover'>";
+   	 	bList +=" <thead>";
+   	 
+   	 	bList +=" <tr>";
+   	 	bList +=" <th>책이미지</th>";
+   	 	bList +=" <th>가격</th>";
+   	 	bList +=" <th>출판사</th>";
+   	 	bList +=" </tr>";
+   	 
+      bList +=" </thead>";
+      
+      $.each(data.documents, function(index, book){
+    	  var image=book.thumbnail;
+    	  var price=book.price;
+    	  var url=book.url;
+    	  var publisher=book.publisher;
+    	  
+    	  bList+=" <tbody>";
+    	  bList+=" <tr>";
+    	  bList+=" <td><a href='"+url+"'> <img src='"+image+"' width='50px' height='60px'/> </a></td>";
+    	  bList+=" <td>"+price+"</td>";
+    	  bList+=" <td>"+url+"</td>";
+    	  bList+=" <td>"+publisher+"</td>";
+    	  
+    	  bList+=" </tr>";
+    	  bList+=" </tbody>";
+   	   
+      });
+      
+   		bList +=" </table>";
+   		$("#bookList").html(bList);
+    }
+  
+    function goMsg(){
+   		$("#myModal").modal("show");
+    }  
   </script>
  </head>
 <body>
@@ -142,9 +235,12 @@
                       <li class="page-item"><a class="page-link" href="${pm.endPage+1}">▶(Next)</a></li>
                     </c:if>
                    </ul>
+                   
                    <form id="pageForm" action="${cpath}/list" method="post">
                       <input type="hidden" id="page" name="page" value="${pm.cri.page}"/>
                      
+                      <input type="hidden" id="type" name="type" value="${pm.cri.type}"/>
+                      <input type="hidden" id="keyword" name="keyword" value="${pm.cri.keyword}"/>
                    </form>
                   <!-- 페이징 리스트 출력 끝 -->
                   <c:if test="${!empty mvo}">    
