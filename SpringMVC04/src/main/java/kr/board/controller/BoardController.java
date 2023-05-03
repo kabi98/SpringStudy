@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.board.entity.Board;
@@ -22,13 +25,16 @@ import kr.board.mapper.BoardMapper;
 
 @Controller  // 컨트롤러로 인식을한다.
 public class BoardController{ // Service(X)->Controller(POJO)
+	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
    
 	@Autowired
 	private BoardMapper mapper;
 	
 	@RequestMapping("/list") // /list---HandlerMapping----->list()
-	public String list(Criteria cri,Model model) {
-	    // 게시판 3개를 생성하고 List에 저장하기		
+	public String list(Criteria cri, Model model) {
+		logger.info(" start {}.", "list");
+
+		// 게시판 3개를 생성하고 List에 저장하기		
 		List<Board> list=mapper.getLists(cri);
 		// 객체바인딩//         번지(100)--->list
 		model.addAttribute("list", list);
@@ -115,6 +121,24 @@ public class BoardController{ // Service(X)->Controller(POJO)
 		
 		return "redirect:/list";
 	}
+
+/*	
+	// OpenAPI 개발방법 = IP 제공하면 다른 PC 에서 접근가능
+	// http://localhost:8081/mvc04/ajaxlist
+	// http://121.179.7.40:8081/mvc04/ajaxlist
+	@RequestMapping("/ajaxlist")  //
+	public @ResponseBody List<Board> ajaxList() {
+		List<Board> list=mapper.ajaxList();
+		// @@ResponseBody 가 하는 역할
+		// list -> json 변환 (API) - pom.xml 추가 : jackson databind
+		// 변환된 json 객체를 응답
+		
+		return list; 
+		// 일반적인 동기 응답 : jsp(forward), Controller(redirect)
+	}
+*/	
+	
+	
 }
 
 

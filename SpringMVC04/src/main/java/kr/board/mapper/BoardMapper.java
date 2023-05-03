@@ -37,6 +37,10 @@ public interface BoardMapper {
 	
 //	@Select("select count(*) from reply")
 	public int totalCount(Criteria cri);
+	
+	@Select("select * from board order by num desc")
+	public List<Board> ajaxList();
+	
 }
 
 /*

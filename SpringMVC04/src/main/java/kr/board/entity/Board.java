@@ -2,6 +2,8 @@ package kr.board.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,7 @@ public class Board {
   private String title;
   private String content;
   private String writer;
+  @JsonFormat(pattern="yyyy-MM-dd")
   private Date indate;
   private int count;
   // 답변형 게시판 추가
