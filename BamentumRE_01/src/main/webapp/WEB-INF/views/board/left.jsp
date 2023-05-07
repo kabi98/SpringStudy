@@ -19,11 +19,11 @@
 			<form action="${cpath}/login" method="post">
 				<div class="form-group">
 					<label> 아이디 : </label>
-					<input type="text" name="username" class="form-control"/>
+					<input type="text" name="email" class="form-control"/>
 				</div>
 				<div class="form-group">
 					<label> 비밀번호 : </label>
-					<input type="password" name="password" class="form-control"/>
+					<input type="password" name="pw" class="form-control"/>
 				</div>
 				<button class="btn btn-sm btn-primary form-control">로그인</button>			
 				
@@ -34,7 +34,7 @@
 		
 		<c:if test="${!empty mvo}">
 			
-			<h4 class="card-title"> ${mvo.name} </h4>
+			<h4 class="card-title"> ${mvo.nick} </h4>
 			<p class="card-text"> 회원님 ! Welcome </p>
 			<form action="${cpath}/logout" method="post">
 				<button class="btn btn-sm btn-primary form-control">로그아웃</button>			
