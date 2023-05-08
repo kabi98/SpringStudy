@@ -4,12 +4,37 @@
 
 <mapper namespace="com.bmt.mapper.BoardMapper">
 
+	<!-- 동적 sql -->
+	<sql id="search">
+		where p.email = u.email
+		<if test = "type=='writer'">
+			and u.nick like concat('%', #{keyword}, '%')
+		</if>
+		<if test = "type=='title'">
+			and p.title like concat('%', #{keyword}, '%')
+		</if>
+		<if test = "type=='content'">
+			and p.content like concat('%', #{keyword}, '%')
+		</if>
+	</sql>
+
+
 	<!-- 전체 게시물을 가져오는 SQL -->
-	<select id="getLists" resultType = "com.bmt.entity.Bmt_post">
-		select p.idx idx, p.title title, p.pdate pdate, u.nick nick, p.file file, p.view view 
+	<select id="getLists" resultType = "com.bmt.entity.Bmt_post"
+                        parameterType="com.bmt.entity.Criteria">
+		select p.idx idx, p.title title, p.pdate pdate, u.nick nick, p.file file, p.view view, p.content content 
 		from bmt_post p, bmt_user u
-		where p.email = u.email 
+    <include refid="search"/>
 		order by pdate desc
+    limit #{pageStart}, #{perPageNum}
+		
 	</select>
+
+  <select id="totalCount" resultType="int" 
+                        parameterType="com.bmt.entity.Criteria">
+    select count(*)
+		from bmt_post p, bmt_user u
+    <include refid="search"/>
+  </select>
 
 </mapper>

@@ -21,6 +21,24 @@
   <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>  
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script type="text/javascript">
+  
+  	$(document).ready(function(){
+  		
+   		var pageForm=$("#pageForm");
+   	  $(".pagination a").on("click", function(e){
+   	 		e.preventDefault(); // a tag의 고유한 기능을 막는 방법
+   	 	  var page=$(this).attr("href"); 
+   	 	  //location.href="${cpath}/list?page="+page+"&aaa=aaa"; / form 이용
+   	 	  $("#page").val(page); // hidden
+   	 	  pageForm.submit(); //폼을 전송
+   	  });
+  	} 
+  
+  </script>
+  
+  
 </head>
 <body>
  
@@ -75,6 +93,28 @@
 
 								</tbody>								
 							</table>
+							
+              <!-- 페이징 리스트 출력 시작 -->
+               <ul class="pagination justify-content-center">
+                <c:if test="${pm.prev}">
+                  <li class="page-item"><a class="page-link" href="${pm.startPage-1}">◀(Prev)</a></li>
+                </c:if>
+                <c:forEach var="pageNum" begin="${pm.startPage}" end="${pm.endPage}"> 
+                  <li class="page-item ${pm.cri.page==pageNum ? 'active' : ''}"><a class="page-link" href="${pageNum}">${pageNum}</a></li>
+                </c:forEach>
+                <c:if test="${pm.next}">
+                  <li class="page-item"><a class="page-link" href="${pm.endPage+1}">▶(Next)</a></li>
+                </c:if>
+               </ul>
+               
+               <form id="pageForm" action="${cpath}/list" method="post">
+                  <input type="hidden" id="page" name="page" value="${pm.cri.page}"/>
+                 
+                  <input type="hidden" id="type" name="type" value="${pm.cri.type}"/>
+                  <input type="hidden" id="keyword" name="keyword" value="${pm.cri.keyword}"/>
+               </form>
+              <!-- 페이징 리스트 출력 끝 -->
+							
 
 							<c:if test="${!empty mvo}">							
 								<button class = "btn btn-success btn-sm" onclick="location.href='${cpath}/register'"> 글쓰기 </button>

@@ -2,7 +2,7 @@
 # > #은 mysql에서 주석 입니다.
 ############################################################################
 ### mysql에 root 로 접속
-#
+# 0. mysql 폴더의 startup.bat 실행.
 # 1. CMD 실행
 # 2. mysql 폴더로 이동
 #		cd C:\eGovFrame-4.0.0\bin\mysql-5.7.32\bin
@@ -152,3 +152,5 @@ insert into bmt_post (file, pdate, view, email, title, content) values ('/DATA/P
 
 
 commit;
+
+select * from bmt_post;

@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bmt.entity.Bmt_post;
+import com.bmt.entity.Criteria;
+import com.bmt.entity.PageMaker;
 import com.bmt.mapper.BoardMapper;
 
 
@@ -22,14 +24,20 @@ public class BoardController {
 	private BoardMapper mapper;
 	
 	@RequestMapping("/list")
-	public String list(Model model) {
+	public String list(Criteria cri, Model model) {
 		logger.info("BoardController list");
 		
-		List<Bmt_post> list = mapper.getLists();
+		List<Bmt_post> list = mapper.getLists(cri);
 		model.addAttribute("list", list);
 		
+		PageMaker pm=new PageMaker();
+		pm.setCri(cri);
+		pm.setTotalCount(mapper.totalCount(cri));
+		logger.info("BoardController list page {}, ", pm.getCri().getPage());
+		model.addAttribute("pm", pm); // ${pm.cri.page}
 		return "board/list";
 	}
+
 	
 	
 

@@ -44,6 +44,8 @@ public class BoardController{ // Service(X)->Controller(POJO)
 		pm.setTotalCount(mapper.totalCount(cri));
 		model.addAttribute("pm", pm); // ${pm.cri.page}
 		
+		logger.info(" list page {}.", pm.getCri().getPage());
+		
 		return "board/list"; // /WEB-INF/views/board/list.jsp : forward
 	}
 	@GetMapping("/register")

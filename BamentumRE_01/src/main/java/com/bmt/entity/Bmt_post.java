@@ -13,6 +13,7 @@ public class Bmt_post {
 	private String nick;
 	private String file;
 	private int view;
+	private String content;
 	
 }
 
