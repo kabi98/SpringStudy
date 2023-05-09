@@ -99,8 +99,15 @@
                 <c:if test="${pm.prev}">
                   <li class="page-item"><a class="page-link" href="${pm.startPage-1}">◀(Prev)</a></li>
                 </c:if>
-                <c:forEach var="pageNum" begin="${pm.startPage}" end="${pm.endPage}"> 
+                <c:forEach var="pageNum" begin="${pm.startPage}" end="${pm.endPage}">
+                <!--  
                   <li class="page-item ${pm.cri.page==pageNum ? 'active' : ''}"><a class="page-link" href="${pageNum}">${pageNum}</a></li>
+ 								-->                  
+                  
+                  
+                  <li class="page-item ${pm.cri.page==pageNum ? 'active' : ''}"><a class="page-link" href="${cpath}/list?page=${pageNum}">${pageNum}</a></li>
+                                                                                                                               
+                  
                 </c:forEach>
                 <c:if test="${pm.next}">
                   <li class="page-item"><a class="page-link" href="${pm.endPage+1}">▶(Next)</a></li>
