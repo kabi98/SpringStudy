@@ -32,7 +32,7 @@ public class BoardController{ // Service(X)->Controller(POJO)
 	
 	@RequestMapping("/list") // /list---HandlerMapping----->list()
 	public String list(Criteria cri, Model model) {
-		logger.info(" start {}.", "list");
+		logger.info(" start {} cri.page {}.", "list", cri.getPage());
 
 		// 게시판 3개를 생성하고 List에 저장하기		
 		List<Board> list=mapper.getLists(cri);

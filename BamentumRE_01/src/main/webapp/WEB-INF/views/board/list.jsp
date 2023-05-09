@@ -26,15 +26,20 @@
   
   	$(document).ready(function(){
   		
-   		var pageForm=$("#pageForm");
-   	  $(".pagination a").on("click", function(e){
-   	 		e.preventDefault(); // a tag의 고유한 기능을 막는 방법
-   	 	  var page=$(this).attr("href"); 
-   	 	  //location.href="${cpath}/list?page="+page+"&aaa=aaa"; / form 이용
-   	 	  $("#page").val(page); // hidden
-   	 	  pageForm.submit(); //폼을 전송
-   	  });
-  	} 
+  		console.log("ready")
+  		
+  		var pageForm = $("#pageForm");
+  		$(".pagination a").on("click", function(e) {
+	  	  	console.log(".pagination a on click")
+  			e.preventDefault(); // a tag의 고유한 기능을 막는 방법
+  			var page = $(this).attr("href");
+     	 	  //location.href="${cpath}/list?page="+page+"&aaa=aaa"; / form 이용
+  			$("#page").val(page);
+  			pageForm.submit();
+  	 	});
+  			
+ 	});
+  		
   
   </script>
   
@@ -100,13 +105,11 @@
                   <li class="page-item"><a class="page-link" href="${pm.startPage-1}">◀(Prev)</a></li>
                 </c:if>
                 <c:forEach var="pageNum" begin="${pm.startPage}" end="${pm.endPage}">
-                <!--  
                   <li class="page-item ${pm.cri.page==pageNum ? 'active' : ''}"><a class="page-link" href="${pageNum}">${pageNum}</a></li>
- 								-->                  
                   
-                  
+                  <!-- 
                   <li class="page-item ${pm.cri.page==pageNum ? 'active' : ''}"><a class="page-link" href="${cpath}/list?page=${pageNum}">${pageNum}</a></li>
-                                                                                                                               
+                   -->                                                                                                             
                   
                 </c:forEach>
                 <c:if test="${pm.next}">
