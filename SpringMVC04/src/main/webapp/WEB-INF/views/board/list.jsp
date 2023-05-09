@@ -412,6 +412,8 @@
                       <input type="hidden" id="keyword" name="keyword" value="${pm.cri.keyword}"/>
                    </form>
                   <!-- 페이징 리스트 출력 끝 -->
+                  
+                  
                   <c:if test="${!empty mvo}">    
                    <button class="btn btn-secondary btn-sm" onclick="location.href='${cpath}/register'">글쓰기</button>
                   </c:if>
