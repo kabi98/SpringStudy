@@ -25,7 +25,7 @@ public class LoginController {
 	
 	@RequestMapping("/login") 
 	public String login(Member mvo, HttpSession session) {
-		logger.info("LoginController login");
+		logger.info("LoginController login {}", mvo.getName());
 		Member vo = mapper.login(mvo);
 		if(vo != null) { // 회원인증에 성공
 			// 모든 jsp 에서 인증여부 확인을 위해서
