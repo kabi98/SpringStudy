@@ -67,6 +67,27 @@ public class BoardController {
     }	
 
 /*    
+
+
+        Boolean result = Boolean.FALSE;
+        try{
+            File folder = new File(dirName);
+            if (!folder.exists()) {
+            	folder.mkdirs();
+            }
+
+            File destination = new File(dirPath + File.separator + image.getOriginalFilename());
+            image.transferTo(destination);
+
+            result = Boolean.TRUE;
+        }catch (Exception e){
+            log.error("에러 : " + e.getMessage());
+        }finally {
+            return result;
+        }
+
+
+
     @PostMapping("/upload")
     public String fileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         fileService.fileUpload(file);
