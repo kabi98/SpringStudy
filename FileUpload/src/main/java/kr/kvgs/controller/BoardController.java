@@ -1,5 +1,6 @@
 package kr.kvgs.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,19 +57,23 @@ public class BoardController {
         String fileName = file.getOriginalFilename(); // 원본 파일명
         long fileSize = file.getSize(); // 원본 파일 크기
          
-		logger.info("BoardController getFile UploadFileName : {}, FileSize : {}", fileName, fileSize);
- 
-        HashMap< String, Object > map = new HashMap< String, Object>();
-        map.put("fileName", fileName);
-        map.put("fileSize", fileSize);
-        model.addAttribute("uploadFile", map);
+        try{
+        
+			logger.info("BoardController getFile UploadFileName : {}, FileSize : {}", fileName, fileSize);
+	        File destination = new File('/' + file.getOriginalFilename());
+	        file.transferTo(destination);
+        }catch (Exception e){
+        	logger.info("에러 : " + e.getMessage());
+        }finally {
+        	
+        }
          
         return "fileResponse";
     }	
 
-/*    
 
-
+/*
+    public Boolean uploadImage(MultipartFile image, String dirName) throws Exception {
         Boolean result = Boolean.FALSE;
         try{
             File folder = new File(dirName);
@@ -85,6 +90,7 @@ public class BoardController {
         }finally {
             return result;
         }
+    }
 
 
 
