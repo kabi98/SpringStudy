@@ -54,13 +54,22 @@ public class BoardController {
     // 파일전송 요청을 처리하기 위한 컨트롤러
     @RequestMapping("/getFile")
     public String getFile(HttpServletRequest request, Model model,  MultipartFile file){
-        String fileName = file.getOriginalFilename(); // 원본 파일명
-        long fileSize = file.getSize(); // 원본 파일 크기
-         
-        try{
+        String fileName = file.getOriginalFilename(); 
+        long fileSize = file.getSize();
         
-			logger.info("BoardController getFile UploadFileName : {}, FileSize : {}", fileName, fileSize);
-	        File destination = new File('/' + file.getOriginalFilename());
+        String imagePath = request.getServletContext().getRealPath("/");
+        String fileFullPath = imagePath + file.getOriginalFilename();
+		logger.info("BoardController getFile imagePath : {}, FullPath : {}", imagePath, fileFullPath);
+         
+		File UploadFolder = new File(imagePath);
+        try{
+    		if( !UploadFolder.exists() ) {
+    			logger.info("BoardController getFile imagePath : {} not exist", imagePath);
+    			UploadFolder.mkdir();
+    		}
+        
+			logger.info("BoardController getFile FullPath : {}, FileSize : {}", fileFullPath, fileSize);
+	        File destination = new File(fileFullPath);
 	        file.transferTo(destination);
         }catch (Exception e){
         	logger.info("에러 : " + e.getMessage());
@@ -68,7 +77,7 @@ public class BoardController {
         	
         }
          
-        return "fileResponse";
+        return "board/03_detect";
     }	
 
 
